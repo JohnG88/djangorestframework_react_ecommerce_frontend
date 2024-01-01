@@ -1,11 +1,10 @@
 //import 'react-toastify/dist/ReactToastify.css';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 //import { ToastContainer, toast } from 'react-toastify';
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PartialOrderReturn = () => {
-    const navigate = useNavigate();
     const params = useParams();
     const orderId = params.orderId;
     //toast.configure();
@@ -18,15 +17,7 @@ const PartialOrderReturn = () => {
 
     const [itemReturnedData, setItemReturnedData] = useState(null);
 
-    console.log("returning data", returningData);
-    console.log("order", order);
-    console.log("item returned data", itemReturnedData);
-
-    useEffect(() => {
-        getOrder();
-    }, []);
-
-    const getOrder = async () => {
+    const getOrder = useCallback(async () => {
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/return-partial-order/${orderId}`,
@@ -48,7 +39,12 @@ const PartialOrderReturn = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    };
+    }, [orderId]);
+
+    
+    useEffect(() => {
+        getOrder();
+    }, [getOrder]);
 
     /*
     const handleSubmit = async (e) => {

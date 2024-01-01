@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 
 const DetailPage = () => {
     const navigate = useNavigate();
@@ -12,10 +11,6 @@ const DetailPage = () => {
     const [number, setNumber] = useState(0);
     const [itemQuantityNumber, setItemQuantityNumber] = useState(null);
     const [error, setError] = useState("");
-
-    useEffect(() => {
-        getProduct();
-    }, []);
 
     //04d20596-0239-498e-9273-e66fdc39c3d6
     /*
@@ -41,7 +36,7 @@ const DetailPage = () => {
 
     const isButtonDisabled = number < 1;
 
-    const getProduct = async () => {
+    const getProduct = useCallback(async () => {
         try {
             const response = await fetch(
                 `http://127.0.0.1:8000/product/${itemId}`,
@@ -64,7 +59,11 @@ const DetailPage = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    };
+    }, [itemId]);
+
+    useEffect(() => {
+        getProduct();
+    }, [getProduct]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

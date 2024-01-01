@@ -66,7 +66,7 @@ function App() {
         }, fourMinFiftySecs);
 
         return () => clearInterval(interval);
-    }, [accessToken]);
+    }, [dispatch, accessToken, loading, refreshToken]);
 
     /*
     //const {cartItems} = useSelector((store) => store.cart)

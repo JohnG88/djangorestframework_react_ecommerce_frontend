@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import jwt_decode from "jwt-decode";
-import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/userSlice";
 import { clearCart } from "../features/cart/cartSlice";
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isAuthenticated, username } = useSelector((state) => state.user);
+    const { username } = useSelector((state) => state.user);
 
     //const username = jwt_decode(localStorage.getItem("access"))
     const accessToken = localStorage.getItem("access");
+    
+    /*
     const [accessTokenUsername, setAccessTokenUsername] = useState(() =>
         accessToken ? jwt_decode(accessToken) : null
     );
+    */
 
     //const username = jwt_decode(accessToken)
-    console.log("userSlice username", username);
+    //console.log("userSlice username", username);
 
-    const { cartItems } = useSelector((store) => store.cart);
+    //const { cartItems } = useSelector((store) => store.cart);
 
     //if (!user || !user.customer || !user.customer.user) {
     //    return null

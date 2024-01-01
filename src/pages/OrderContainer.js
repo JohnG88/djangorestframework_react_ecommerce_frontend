@@ -1,40 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CartItem from "./OrderItem";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import { getCartItems, calculateTotals } from "./features/cart/cartSlice";
 
 import {
     getCartItems,
     calculateTotals,
-    redirectIfEmptyCart,
-    clearCart,
 } from "../features/cart/cartSlice";
 
 const OrderContainer = () => {
-    const { cartItems, total, amount, isLoading } = useSelector(
+    const { cartItems, total } = useSelector(
         (store) => store.cart
     );
-    const { isAuthenticated } = useSelector((store) => store.user);
-    const navigate = useNavigate();
+    
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const token = localStorage.getItem("token");
-
-    console.log("cart items in order container", cartItems);
-
-    console.log("amount", amount);
 
     useEffect(() => {
         dispatch(getCartItems());
-        /*
-        dispatch(getCartItems()).then(() => {
-            dispatch(calculateTotals());
-            setIsLoaded(true);
-        });
-        */
-    }, []);
+    }, [dispatch]);
 
     /*
     useEffect(() => {
@@ -45,7 +29,7 @@ const OrderContainer = () => {
     useEffect(() => {
         dispatch(calculateTotals());
         //dispatch(redirectIfEmptyCart());
-    }, [cartItems]);
+    }, [dispatch]);
 
     /*
     if (isLoading) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 //import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -24,7 +24,6 @@ const BillingAddressForm = ({
     });
 
     const {
-        id,
         firstName,
         lastName,
         //email,

@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const ProductPage = () => {
-    const [backednInfo, setBackendInfo] = useState(null);
+    const [setBackendInfo] = useState(null);
     const [items, setItems] = useState([]);
 
     const token = localStorage.getItem("access");
     console.log("Home token", token);
 
-    useEffect(() => {
-        getProducts();
-        if (!token) {
-            getData();
-        }
-    }, [token]);
-
     //home url, http://127.0.0.1:8000/home
 
-    const getData = async () => {
+    const getData = useCallback(async () => {
         try {
             const response = await fetch("http://127.0.0.1:8000", {
                 method: "GET",
@@ -33,7 +26,14 @@ const ProductPage = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    };
+    }, [setBackendInfo]);
+
+    useEffect(() => {
+        getProducts();
+        if (!token) {
+            getData();
+        }
+    }, [token, getData]);
 
     const getProducts = async () => {
         try {

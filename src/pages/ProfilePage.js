@@ -7,7 +7,7 @@ import { getUser } from "../features/auth/userSlice";
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
-    const { orders, loading } = useSelector((store) => store.user) || {};
+    const { orders } = useSelector((store) => store.user) || {};
     console.log("orders ", orders);
 
     //const [selectedFruit, setSelectedFruit] = useState('');
@@ -34,7 +34,7 @@ const ProfilePage = () => {
         ) {
             setSelectedYear(new Date(orders[0].order_date).getFullYear());
         }
-    }, [orders]);
+    }, [orders, selectedYear]);
 
     /*
     const handleFruitChange = (e) => {

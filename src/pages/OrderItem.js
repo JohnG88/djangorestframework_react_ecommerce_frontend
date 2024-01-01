@@ -1,9 +1,6 @@
 import React from "react";
 import { ChevronDown, ChevronUp } from "../icons";
 import {
-    removeItem,
-    increase,
-    decrease,
     updateCartItem,
     deleteCartItem,
 } from "../features/cart/cartSlice";
@@ -64,7 +61,7 @@ export const CartItem = ({ id, quantity, product_detail }) => {
     };
 
     //'quantity' in ()
-    const handleDeleteCartItem = (quantity) => {
+    const handleDeleteCartItem = () => {
         console.log("delete");
         dispatch(deleteCartItem({ itemId: id }));
         

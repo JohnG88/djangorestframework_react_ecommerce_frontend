@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 import { setAccessToken } from "../auth/userSlice";
 
-const url = "http://127.0.0.1:8000/order";
+//const url = "http://127.0.0.1:8000/order";
 const url2 = "http://127.0.0.1:8000/update-order-item";
 const url3 = "http://127.0.0.1:8000/delete-order-item";
 

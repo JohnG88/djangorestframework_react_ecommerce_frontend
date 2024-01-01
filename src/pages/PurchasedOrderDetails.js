@@ -56,6 +56,10 @@ const PurchasedOrderDetails = () => {
                                                         item.product_detail
                                                             .image
                                                     }
+                                                    alt={
+                                                        item.product_detail
+                                                            .image
+                                                    }
                                                 />
                                                 <div className="purchased-item-details-child">
                                                     <p>

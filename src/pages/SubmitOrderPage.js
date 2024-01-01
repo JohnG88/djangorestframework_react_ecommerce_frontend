@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import CartItem from "./OrderItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCartItems,
     calculateTotals,
-    deleteCartItem,
 } from "../features/cart/cartSlice";
 import { useNavigate, Link } from "react-router-dom";
 import {
     CardElement,
     useElements,
     useStripe,
-    PaymentElement,
 } from "@stripe/react-stripe-js";
 
 import { clearCart } from "../features/cart/cartSlice";
@@ -19,7 +16,7 @@ import { clearCart } from "../features/cart/cartSlice";
 import BillingAddressForm from "../modals/BillingAddressModal";
 
 const SubmitOrderPage = () => {
-    const { isAuthenticated, username } = useSelector((state) => state.user);
+    const { username } = useSelector((state) => state.user);
 
     const stripe = useStripe();
     const elements = useElements();
@@ -57,17 +54,6 @@ const SubmitOrderPage = () => {
 
     const [error, setError] = useState("");
 
-    const [popForm, setPopForm] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        streetAddress: "",
-        apt: "",
-        city: "",
-        state: "",
-        zipcode: "",
-    });
-
     useEffect(() => {
         dispatch(getCartItems());
         //getShippingBillingAddress();
@@ -84,11 +70,11 @@ const SubmitOrderPage = () => {
                 }
             }, 500);
         }
-    }, [username]);
+    }, [username, dispatch]);
 
     useEffect(() => {
         dispatch(calculateTotals());
-    }, [cartItems]);
+    }, [cartItems, dispatch]);
 
     const {
         id,
@@ -326,10 +312,6 @@ const SubmitOrderPage = () => {
             // Handle any errors that might occur during payment method creation or API request
             console.log("Error creating payment method: " + error.message);
         }
-    };
-
-    const handleDeleteCartItem = (quantity) => {
-        dispatch(deleteCartItem({ itemId: quantity }));
     };
 
     const cardElementOptions = {
