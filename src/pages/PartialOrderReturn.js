@@ -4,6 +4,10 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import { useParams } from "react-router-dom";
 
+import { config } from "../Constants";
+
+const url = config.url.API_URL;
+
 const PartialOrderReturn = () => {
     const params = useParams();
     const orderId = params.orderId;
@@ -20,7 +24,7 @@ const PartialOrderReturn = () => {
     const getOrder = useCallback(async () => {
         try {
             const response = await fetch(
-                `http://127.0.0.1:8000/return-partial-order/${orderId}`,
+                `${url}/return-partial-order/${orderId}`,
                 {
                     method: "GET",
                     headers: {
@@ -107,7 +111,7 @@ const PartialOrderReturn = () => {
             try {
                 // Submit the data
                 const response = await fetch(
-                    `http://127.0.0.1:8000/return-partial-order/${orderId}`,
+                    `${url}/return-partial-order/${orderId}`,
                     {
                         method: "PATCH",
                         headers: {

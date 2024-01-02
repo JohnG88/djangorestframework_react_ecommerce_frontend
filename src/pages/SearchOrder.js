@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { config } from "../Constants";
+
+const url = config.url.API_URL;
+
 const SearchOrder = () => {
     const [formData, setFormData] = useState({
         email: "",
@@ -19,7 +23,7 @@ const SearchOrder = () => {
 
         try {
             const response = await fetch(
-                `http://127.0.0.1:8000/search-order?email=${email}&orderNumber=${orderNumber}`,
+                `${url}/search-order?email=${email}&orderNumber=${orderNumber}`,
                 {
                     method: "GET",
                     headers: {

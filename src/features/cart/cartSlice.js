@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { config } from "../../Constants";
 
 import { setAccessToken } from "../auth/userSlice";
 
-//const url = "http://127.0.0.1:8000/order";
-const url2 = "http://127.0.0.1:8000/update-order-item";
-const url3 = "http://127.0.0.1:8000/delete-order-item";
+const url = config.url.API_URL
+
+//const url2 = "http://127.0.0.1:8000/update-order-item";
+//const url3 = "http://127.0.0.1:8000/delete-order-item";
 
 const initialState = {
     cartItems: [],
@@ -38,7 +40,7 @@ export const getCartItems = createAsyncThunk(
             const access = accessTokenFromLocalStorage || userInfo.payload.user.accessToken;
             console.log("order access", access)
 
-            const resp = await axios.get("http://127.0.0.1:8000/order", {
+            const resp = await axios.get(`${url}/order`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,7 +81,7 @@ export const updateCartItem = createAsyncThunk(
 
             //const access = localStorage.getItem("access");
             const resp = await axios.patch(
-                `${url2}/${itemId}`,
+                `${url}/update-order-item/${itemId}`,
                 { quantity },
                 {
                     headers: {
@@ -114,7 +116,7 @@ export const deleteCartItem = createAsyncThunk(
 
             const access = accessTokenFromLocalStorage || userInfo.payload.user.accessToken;
             //const access = localStorage.getItem("access");
-            const resp = await axios.delete(`${url3}/${itemId}`, {
+            const resp = await axios.delete(`${url}/delete-order-item/${itemId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     ...(access && {

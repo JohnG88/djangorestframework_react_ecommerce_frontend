@@ -15,6 +15,10 @@ import { clearCart } from "../features/cart/cartSlice";
 
 import BillingAddressForm from "../modals/BillingAddressModal";
 
+import { config } from "../Constants";
+
+const url = config.url.API_URL;
+
 const SubmitOrderPage = () => {
     const { username } = useSelector((state) => state.user);
 
@@ -138,7 +142,7 @@ const SubmitOrderPage = () => {
         const access = localStorage.getItem("access");
 
         const response = await fetch(
-            "http://127.0.0.1:8000/billing-shipping-address",
+            `{url}/billing-shipping-address`,
             {
                 method: "GET",
                 headers: {
@@ -200,7 +204,7 @@ const SubmitOrderPage = () => {
         } = formData;
 
         const response = await fetch(
-            "http://127.0.0.1:8000/edit-shipping-billing",
+            `${url}/edit-shipping-billing`,
             {
                 method: "PUT",
                 headers: {
@@ -246,7 +250,7 @@ const SubmitOrderPage = () => {
                 const access = localStorage.getItem("access");
 
                 const response = await fetch(
-                    "http://127.0.0.1:8000/submit-order",
+                    `${url}/submit-order`,
                     {
                         method: "POST",
                         headers: {

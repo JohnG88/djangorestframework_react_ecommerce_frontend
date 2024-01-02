@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
+import {config} from "../Constants"
+
+const url = config.url.API_URL;
+
 const ProductPage = () => {
     const [setBackendInfo] = useState(null);
     const [items, setItems] = useState([]);
@@ -12,7 +16,7 @@ const ProductPage = () => {
 
     const getData = useCallback(async () => {
         try {
-            const response = await fetch("http://127.0.0.1:8000", {
+            const response = await fetch(`${url}`, {
                 method: "GET",
                 credentials: "include",
             });
@@ -38,7 +42,7 @@ const ProductPage = () => {
     const getProducts = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://127.0.0.1:8000/products", {
+            const response = await fetch(`{url}/products`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

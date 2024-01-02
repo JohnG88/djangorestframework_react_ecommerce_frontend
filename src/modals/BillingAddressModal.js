@@ -3,6 +3,10 @@ import Modal from "react-bootstrap/Modal";
 //import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import {config} from "../Constants"
+
+const url = config.url.API_URL
+ 
 const BillingAddressForm = ({
     username,
     show,
@@ -89,7 +93,7 @@ const BillingAddressForm = ({
         const access = localStorage.getItem("access");
 
         const response = await fetch(
-            "http://127.0.0.1:8000/update-billing-address",
+            `${url}/update-billing-address`,
             {
                 method: "POST",
                 headers: {

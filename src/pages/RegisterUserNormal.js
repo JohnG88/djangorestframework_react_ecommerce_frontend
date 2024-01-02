@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import {config} from "../Constants"
+
+const url = config.url.API_URL;
+
 const RegisterForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -13,7 +17,7 @@ const RegisterForm = () => {
     }, []);
 
     const getRegister = async () => {
-        const response = await fetch("http://127.0.0.1:8000/register", {
+        const response = await fetch(`${url}/register`, {
             method: "GET",
         });
     };
@@ -22,7 +26,7 @@ const RegisterForm = () => {
         e.preventDefault();
 
         try {
-            const response = fetch("http://127.0.0.1:8000/register", {
+            const response = fetch(`${url}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

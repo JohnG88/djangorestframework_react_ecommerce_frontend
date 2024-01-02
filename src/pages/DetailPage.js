@@ -2,6 +2,10 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 
+import { config } from "../Constants";
+
+const url = config.url.API_URL;
+
 const DetailPage = () => {
     const navigate = useNavigate();
     const params = useParams();
@@ -39,7 +43,7 @@ const DetailPage = () => {
     const getProduct = useCallback(async () => {
         try {
             const response = await fetch(
-                `http://127.0.0.1:8000/product/${itemId}`,
+                `${url}/${itemId}`,
                 {
                     method: "GET",
                     headers: {
@@ -77,7 +81,7 @@ const DetailPage = () => {
 
             const access = localStorage.getItem("access");
             const response = await fetch(
-                `http://127.0.0.1:8000/product/${itemId}`,
+                `${url}/product/${itemId}`,
                 {
                     method: "POST",
                     headers: {

@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { config } from "../../Constants";
+
+const url = config.url.API_URL
 
 const initialState = {
     isAuthenticated: false,
@@ -16,7 +19,7 @@ function getAccessTokenFromLocalStorage() {
 
 const mergeGuestCartToUserCart = async (access, id) => {
     try {
-        const response = await fetch("http://127.0.0.1:8000/merge", {
+        const response = await fetch(`${url}/merge`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +46,7 @@ export const register = createAsyncThunk(
         });
 
         try {
-            const res = await fetch("http://127.0.0.1:8000/register", {
+            const res = await fetch(`${url}/register`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -69,7 +72,7 @@ export const register = createAsyncThunk(
 export const getUser = createAsyncThunk("users/me", async (year, thunkAPI) => {
     try {
         const access = localStorage.getItem("access");
-        const res = await fetch(`http://127.0.0.1:8000/user?year=${year}`, {
+        const res = await fetch(`${url}/user?year=${year}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -99,7 +102,7 @@ export const login = createAsyncThunk(
         });
 
         try {
-            const res = await fetch("http://127.0.0.1:8000/token", {
+            const res = await fetch(`${url}/token`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -280,7 +283,7 @@ export const updateToken = createAsyncThunk(
         console.log("updateToken refresh", refreshToken);
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/refresh", {
+            const response = await fetch(`${url}/refresh`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
