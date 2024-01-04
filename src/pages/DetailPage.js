@@ -16,31 +16,13 @@ const DetailPage = () => {
     const [itemQuantityNumber, setItemQuantityNumber] = useState(null);
     const [error, setError] = useState("");
 
-    //04d20596-0239-498e-9273-e66fdc39c3d6
-    /*
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(";");
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === name + "=") {
-                    cookieValue = decodeURIComponent(
-                        cookie.substring(name.length + 1)
-                    );
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie("csrftoken");
-    */
+    useEffect(() => {
+        getProduct();
+    }, []);
 
     const isButtonDisabled = number < 1;
 
-    const getProduct = useCallback(async () => {
+    const getProduct = async () => {
         try {
             const response = await fetch(
                 `${url}/${itemId}`,
@@ -63,11 +45,7 @@ const DetailPage = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    }, [itemId]);
-
-    useEffect(() => {
-        getProduct();
-    }, [getProduct]);
+    };    
 
     const handleSubmit = async (e) => {
         e.preventDefault();

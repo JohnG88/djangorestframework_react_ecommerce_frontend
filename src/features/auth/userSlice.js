@@ -71,6 +71,7 @@ export const register = createAsyncThunk(
 
 export const getUser = createAsyncThunk("users/me", async (year, thunkAPI) => {
     try {
+        //const validYear = year || "";
         const access = localStorage.getItem("access");
         const res = await fetch(`${url}/user?year=${year}`, {
             method: "GET",
@@ -279,8 +280,6 @@ export const updateToken = createAsyncThunk(
         //const { refreshToken } = thunkAPI.getState().user;
         const accessToken = localStorage.getItem("access");
         const refreshToken = localStorage.getItem("refresh");
-
-        console.log("updateToken refresh", refreshToken);
 
         try {
             const response = await fetch(`${url}/refresh`, {

@@ -6,15 +6,21 @@ import {config} from "../Constants"
 const url = config.url.API_URL;
 
 const ProductPage = () => {
-    const [setBackendInfo] = useState(null);
+    const [backendInfo, setBackendInfo] = useState(null);
     const [items, setItems] = useState([]);
 
     const token = localStorage.getItem("access");
-    console.log("Home token", token);
 
     //home url, http://127.0.0.1:8000/home
-
-    const getData = useCallback(async () => {
+    
+    useEffect(() => {
+        getProducts();
+        if (!token) {
+            getData();
+        }
+    }, [token]);
+    
+    const getData = async () => {
         try {
             const response = await fetch(`${url}`, {
                 method: "GET",
@@ -30,19 +36,13 @@ const ProductPage = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    }, [setBackendInfo]);
-
-    useEffect(() => {
-        getProducts();
-        if (!token) {
-            getData();
-        }
-    }, [token, getData]);
+    };
+    
 
     const getProducts = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`{url}/products`, {
+            const response = await fetch(`${url}/products`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

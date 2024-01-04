@@ -44,11 +44,38 @@ function App() {
     const accessToken = localStorage.getItem("access");
     const refreshToken = localStorage.getItem("refresh");
     
-    console.log("accessToken", accessToken);
     //const refreshToken = localStorage.getItem("refresh")
 
+    /*
+    useEffect(() => {
+        const fetchData = async () => {
+            if (accessToken) {
+                await dispatch(getUser());
+            }
+    
+            if (loading) {
+                await dispatch(updateToken());
+            }
+    
+            //const fourMinFiftySecs = 1000 * 20;
+            const fourMinFiftySecs = 1000 * (4 * 60 + 30);
+            const interval = setInterval(async () => {
+                if (refreshToken) {
+                    await dispatch(updateToken());
+                }
+            }, fourMinFiftySecs);
+    
+            return () => clearInterval(interval);
+        };
+    
+        fetchData();
+    }, [dispatch, accessToken, loading, refreshToken]);
+    */
+
+    
     useEffect(() => {
         if (accessToken) {
+
             dispatch(getUser());
         }
 
@@ -66,7 +93,8 @@ function App() {
         }, fourMinFiftySecs);
 
         return () => clearInterval(interval);
-    }, [dispatch, accessToken, loading, refreshToken]);
+    }, [accessToken]);
+    
 
     /*
     //const {cartItems} = useSelector((store) => store.cart)
@@ -135,8 +163,10 @@ function App() {
                         <Route path="/" element={<ProductPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/login" element={<LoginForm />} />
-                        {/*}<Route path="/products" element={<ProductPage />}/>*/}
+                        {/*}<Route path="/products" element={<ProductPage />}/>
+                        */}
                         <Route path="/profile" element={<ProfilePage />}/>
+                        
                         <Route
                             path="/detail/:detailId"
                             element={<DetailPage />}

@@ -57,7 +57,7 @@ const SubmitOrderPage = () => {
     const [editSaveButtonToggle, setEditSaveButtonToggle] = useState(true);
 
     const [error, setError] = useState("");
-
+    
     useEffect(() => {
         dispatch(getCartItems());
         //getShippingBillingAddress();
@@ -79,6 +79,7 @@ const SubmitOrderPage = () => {
     useEffect(() => {
         dispatch(calculateTotals());
     }, [cartItems, dispatch]);
+    
 
     const {
         id,

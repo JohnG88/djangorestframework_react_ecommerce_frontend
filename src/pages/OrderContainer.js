@@ -15,21 +15,23 @@ const OrderContainer = () => {
     );
     
     const dispatch = useDispatch();
-
+    
     useEffect(() => {
         dispatch(getCartItems());
     }, [dispatch]);
+    
 
     /*
     useEffect(() => {
         dispatch(getCartItems());
     }, [dispatch]);
     */
-
+    
     useEffect(() => {
         dispatch(calculateTotals());
         //dispatch(redirectIfEmptyCart());
     }, [dispatch]);
+    
 
     /*
     if (isLoading) {

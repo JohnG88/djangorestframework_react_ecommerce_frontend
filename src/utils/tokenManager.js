@@ -1,3 +1,6 @@
+import { config } from "../Constants";
+
+const url = config.url.API_URL;
 // tokenManager.js
 
 // Function to check if the access token is expired
@@ -13,7 +16,7 @@ export const isTokenExpired = (token) => {
 // Function to refresh the access token
 export const refreshAccessToken = async (refreshToken) => {
     try {
-        const response = await fetch("http://127.0.0.1:8000/refresh", {
+        const response = await fetch(`${url}/refresh`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
