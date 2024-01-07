@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-//import dotenv from 'dotenv'
-//import { useDispatch } from "react-redux";
-//import { verify } from "./features/auth/userSlice";
+import React, { useEffect, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -22,10 +19,7 @@ import PartialOrderReturn from "./pages/PartialOrderReturn";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
 
-//import { isTokenExpired, refreshAccessToken } from "./utils/tokenManager";
-
 import { useDispatch, useSelector } from "react-redux";
-//import { calculateTotals, getCartItems } from "./features/cart/cartSlice";
 
 import { updateToken, getUser } from "./features/auth/userSlice";
 
@@ -43,116 +37,42 @@ function App() {
 
     const accessToken = localStorage.getItem("access");
     const refreshToken = localStorage.getItem("refresh");
-    
-    //const refreshToken = localStorage.getItem("refresh")
 
-    /*
-    useEffect(() => {
-        const fetchData = async () => {
-            if (accessToken) {
-                await dispatch(getUser());
-            }
-    
-            if (loading) {
-                await dispatch(updateToken());
-            }
-    
-            //const fourMinFiftySecs = 1000 * 20;
-            const fourMinFiftySecs = 1000 * (4 * 60 + 30);
-            const interval = setInterval(async () => {
-                if (refreshToken) {
-                    await dispatch(updateToken());
-                }
-            }, fourMinFiftySecs);
-    
-            return () => clearInterval(interval);
-        };
-    
-        fetchData();
-    }, [dispatch, accessToken, loading, refreshToken]);
-    */
-
-    
-    useEffect(() => {
+    const getUserCallback = useCallback(() => {
         if (accessToken) {
-
+            //const currentYear = new Date().getFullYear();
             dispatch(getUser());
         }
+    }, [dispatch, accessToken]);
 
+    const updateTokenCallback = useCallback(() => {
         if (loading) {
             dispatch(updateToken());
         }
+    }, [dispatch, loading]);
 
-        
-        //const fourMinFiftySecs = 1000 * 20;
-        const fourMinFiftySecs = 1000 * (4 * 60 + 30);
-        const interval = setInterval(() => {
-            if (refreshToken) {
-                dispatch(updateToken());
-            }
-        }, fourMinFiftySecs);
-
-        return () => clearInterval(interval);
-    }, [accessToken]);
-    
-
-    /*
-    //const {cartItems} = useSelector((store) => store.cart)
-
-    // Function to refresh the access token and update it in local storage and Redux store
-    const handleTokenRefresh = async () => {
-        const refreshToken = localStorage.getItem("refresh");
+    const intervalCallback = useCallback(() => {
         if (refreshToken) {
-            try {
-                const newAccessToken = await refreshAccessToken(refreshToken);
-                localStorage.setItem("access", newAccessToken);
-                //dispatch(setUserToken(newAccessToken)); // Update the token in Redux store if you're using Redux
-            } catch (error) {
-                // Handle the refresh token failure (e.g., logout the user)
-                console.error("Token refresh failed:", error);
-            }
+            dispatch(updateToken());
         }
-    };
+    }, [dispatch, refreshToken]);
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("access");
-        const refreshToken = localStorage.getItem("refresh");
-
-        // Check if access token is expired or close to expiration (within a threshold)
-        if (isTokenExpired(accessToken)) {
-            // If the token is expired, try refreshing the token
-            handleTokenRefresh();
-        } else if (refreshToken) {
-            // If the token is not expired but there's a refresh token, schedule a refresh before the access token expires
-            const tokenData = JSON.parse(atob(accessToken.split(".")[1]));
-            const expiration = tokenData.exp * 1000; // Convert expiration time to milliseconds
-            const timeUntilExpiration = expiration - Date.now();
-            const threshold = 20 * 1000;
-            //const threshold = 5 * 60 * 1000;
-             // Set a threshold of 5 minutes (adjust as needed)
-
-            if (timeUntilExpiration < threshold) {
-                // If the token will expire within the threshold, schedule a refresh
-                const refreshTimer = setTimeout(
-                    handleTokenRefresh,
-                    timeUntilExpiration
-                );
-                return () => clearTimeout(refreshTimer);
-            }
+        if (accessToken) {
+            getUserCallback();
         }
-    }, [dispatch]);
-    */
+    }, [accessToken, getUserCallback]);
 
-    /*
-  useEffect(() => {
-    dispatch(calculateTotals())
-  }, [cartItems])
-  
+    useEffect(() => {
+        
+        updateTokenCallback();
 
-  useEffect(() => {
-    dispatch(getCartItems())
-  }, [])
-  */
+        const fourMinFiftySecs = 1000 * 20;
+        //const fourMinFiftySecs = 1000 * (4 * 60 + 30);
+        const interval = setInterval(intervalCallback, fourMinFiftySecs);
+
+        return () => clearInterval(interval);
+    }, [updateTokenCallback, intervalCallback, refreshToken]);
 
     return (
         <Elements stripe={stripePromise}>

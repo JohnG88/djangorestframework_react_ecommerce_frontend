@@ -69,11 +69,11 @@ export const register = createAsyncThunk(
     }
 );
 
-export const getUser = createAsyncThunk("users/me", async (year, thunkAPI) => {
+export const getUser = createAsyncThunk("users/me", async (thunkAPI) => {
     try {
         //const validYear = year || "";
         const access = localStorage.getItem("access");
-        const res = await fetch(`${url}/user?year=${year}`, {
+        const res = await fetch(`${url}/user`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -129,8 +129,8 @@ export const login = createAsyncThunk(
                 );
 
                 const orderId = thunkAPI.getState().cart.orderId;
-                const { dispatch } = thunkAPI;
-                dispatch(getUser());
+                //const { dispatch } = thunkAPI;
+                //dispatch(getUser());
 
                 try {
                     await mergeGuestCartToUserCart(access, orderId);

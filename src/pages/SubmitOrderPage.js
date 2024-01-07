@@ -143,7 +143,7 @@ const SubmitOrderPage = () => {
         const access = localStorage.getItem("access");
 
         const response = await fetch(
-            `{url}/billing-shipping-address`,
+            `${url}/billing-shipping-address`,
             {
                 method: "GET",
                 headers: {

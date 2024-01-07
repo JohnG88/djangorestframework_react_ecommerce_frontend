@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { login } from "../features/auth/userSlice";
+import { login, getUser } from "../features/auth/userSlice";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -22,9 +22,12 @@ const LoginForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(login({ username, password }));
+        //dispatch(login({ username, password }));
+        await dispatch(login({ username, password }));
+
+        dispatch(getUser())
     };
 
     if (isAuthenticated) {

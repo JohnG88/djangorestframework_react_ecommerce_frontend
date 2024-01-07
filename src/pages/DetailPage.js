@@ -25,7 +25,7 @@ const DetailPage = () => {
     const getProduct = async () => {
         try {
             const response = await fetch(
-                `${url}/${itemId}`,
+                `${url}/product/${itemId}`,
                 {
                     method: "GET",
                     headers: {
