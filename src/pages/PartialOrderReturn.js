@@ -21,11 +21,7 @@ const PartialOrderReturn = () => {
 
     const [itemReturnedData, setItemReturnedData] = useState(null);
 
-    useEffect(() => {
-        getOrder();
-    }, []);
-
-    const getOrder = async () => {
+    const getOrder = useCallback(async () => {
         try {
             const response = await fetch(
                 `${url}/return-partial-order/${orderId}`,
@@ -47,7 +43,11 @@ const PartialOrderReturn = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    };
+    },[orderId]);
+
+    useEffect(() => {
+        getOrder();
+    }, [getOrder]);
     
 
     /*
