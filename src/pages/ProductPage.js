@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
 import {config} from "../Constants"
@@ -6,7 +6,7 @@ import {config} from "../Constants"
 const url = config.url.API_URL;
 
 const ProductPage = () => {
-    const [backendInfo, setBackendInfo] = useState(null);
+    //const [backendInfo, setBackendInfo] = useState(null);
     const [items, setItems] = useState([]);
 
     const token = localStorage.getItem("access");
@@ -29,7 +29,7 @@ const ProductPage = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("data", data);
-                setBackendInfo(data.message);
+                //setBackendInfo(data.message);
             } else {
                 throw new Error("Request Failed");
             }

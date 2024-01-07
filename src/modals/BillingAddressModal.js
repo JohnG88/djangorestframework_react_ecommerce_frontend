@@ -41,7 +41,7 @@ const BillingAddressForm = ({
     const [formEditable, setFormEditable] = useState(false);
     const [toggleEditSaveButton, setToggleEditSaveButton] = useState(true);
     
-    /*
+    
     useEffect(() => {
         if (billingAddress) {
             setFormData({
@@ -63,7 +63,7 @@ const BillingAddressForm = ({
             }
         }
     }, [billingAddress, show, username]);
-    */
+    
 
     const handleEditClick = () => {
         setFormEditable(true);
@@ -116,7 +116,6 @@ const BillingAddressForm = ({
                     city: city,
                     state: state,
                     zipcode: zipcode,
-                    onanimationstart,
                 }),
             }
         );

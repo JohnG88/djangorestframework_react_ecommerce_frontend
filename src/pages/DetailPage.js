@@ -16,13 +16,9 @@ const DetailPage = () => {
     const [itemQuantityNumber, setItemQuantityNumber] = useState(null);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        getProduct();
-    }, []);
-
     const isButtonDisabled = number < 1;
 
-    const getProduct = async () => {
+    const getProduct = useCallback(async () => {
         try {
             const response = await fetch(
                 `${url}/product/${itemId}`,
@@ -45,7 +41,11 @@ const DetailPage = () => {
         } catch (error) {
             console.log("Error", error);
         }
-    };    
+    }, [itemId])    
+
+    useEffect(() => {
+        getProduct();
+    }, [getProduct]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
