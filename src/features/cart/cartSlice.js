@@ -176,15 +176,21 @@ const cartSlice = createSlice({
             cartItem.quantity = cartItem.quantity - 1;
         },
         calculateTotals: (state) => {
+            console.log("calculateTotals called");
+            console.log("Cart Items:", JSON.parse(JSON.stringify(state.cartItems)));
             let amount = 0;
             let total = 0;
+
             if (state.cartItems && state.cartItems.length > 0) {
                 state.cartItems.forEach((item) => {
-                    //console.log(item.product_detail.price)
+                    console.log("Product detail ", item.product_detail.price)
                     amount += item.quantity;
-                    total += item.quantity * item.product_detail.price;
+                    total += item.quantity * parseFloat(item.product_detail.price);
                 });
             }
+
+            console.log("Updated Amount:", amount);
+            console.log("Updated Total:", total);
 
             state.amount = amount;
             state.total = total;
@@ -199,15 +205,14 @@ const cartSlice = createSlice({
             
             if (action.payload && action.payload.id) {
                 state.orderId = action.payload.id;
-                state.cartItems = action.payload.order_items;
+                state.cartItems = action.payload.order_items || [];
             } else {
                 console.log("Invalid payload structure in getCartItems.fulfilled")
             }
+            console.log("Updated state.cartItems:", state.cartItems);
             state.isLoading = false;
             
-            //state.amount = action.payload.quantity
-            //state.amount = action.payload.quantity
-            //dispatch(calculateTotals())
+            
         });
         builder.addCase(getCartItems.rejected, (state, action) => {
             console.log("rejected", action);

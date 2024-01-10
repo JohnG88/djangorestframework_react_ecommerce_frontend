@@ -16,84 +16,31 @@ const OrderContainer = () => {
     
     const dispatch = useDispatch();
     
+    /*
+    useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getCartItems());
+            dispatch(getCartItems());
+        }
+        fetchData()
+        
+    }, [dispatch]);
+    */
+    
+
+    
     useEffect(() => {
         dispatch(getCartItems());
     }, [dispatch]);
     
-
-    /*
-    useEffect(() => {
-        dispatch(getCartItems());
-    }, [dispatch]);
-    */
+    
     
     useEffect(() => {
         dispatch(calculateTotals());
         //dispatch(redirectIfEmptyCart());
-    }, [dispatch]);
-    
-
-    /*
-    if (isLoading) {
-        return (
-            <div className="loading">
-                <h1>Loading</h1>
-            </div>
-        );
-    }
-    */
-    
-    /*
-    if (isLoading) {
-        // Introduce a 1-second delay
-        setTimeout(() => {
-            return (
-                <div className="loading">
-                    <h1>Loading</h1>
-                </div>
-            );
-        }, 1000); // Adjust the delay time as needed
-    }
-    */
-
-    /*
-    if (!isAuthenticated) {
-        return <Navigate to='/login' />
-    }
-    */
-
-    /*
-    useEffect(() => {
-        if (cartItems.length === 0) {
-            dispatch(redirectIfEmptyCart());
-            //navigate("/login")
-        }
     }, [cartItems, dispatch]);
-
-    useEffect(() => {
-        const handleNavigation = () => {
-            if (cartItems.length === 0) {
-                dispatch(clearCart());
-                navigate("/login");
-            }
-        };
-
-        handleNavigation();
-    }, [cartItems, dispatch, navigate]);
-    */
-
-    /*
-    if (amount < 1) {
-        return (
-            <section className="cart">
-                <header>
-                    <h2>Your Bag</h2>
-                    <h4 className="empty-cart">is currently empty</h4>
-                </header>
-            </section>
-        )
-    }
-    */
+    
+    
 
     if (!cartItems || cartItems.length === 0) {
         return (
