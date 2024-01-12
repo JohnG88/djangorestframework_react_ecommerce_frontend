@@ -56,6 +56,7 @@ const ProfilePage = () => {
     const retrieveOrderByYear = useCallback( async () => {
         try {
             const access = localStorage.getItem("access");
+            console.log("Access token:", access)
             const res = await fetch(`${url}/order-year?year=${selectedYear}`, {
                 method: "GET",
                 headers: {
@@ -64,10 +65,13 @@ const ProfilePage = () => {
                 },
                 credentials: "include",
             });
+            console.log("Response status:", res.status)
             if (res.ok) {
                 const data = await res.json();
                 setOrders(data.user_year_orders_serializer);
                 console.log("order year data", data);
+            } else {
+                console.log("Request failed with status:", res.status)
             }
         } catch (err) {
             console.log("Error", err);
