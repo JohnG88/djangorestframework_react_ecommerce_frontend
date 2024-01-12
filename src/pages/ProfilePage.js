@@ -75,7 +75,9 @@ const ProfilePage = () => {
     }, [selectedYear])
 
     useEffect(() => {
+        console.log("useEffect triggered")
         if (accessToken) {
+            console.log("Calling retrieveOrderByYear")
             retrieveOrderByYear();
         }   
     }, [accessToken, retrieveOrderByYear]);
@@ -213,9 +215,7 @@ const ProfilePage = () => {
                                                     {order.order_items.map(
                                                         (item) => {
                                                             return (
-                                                                <div key={
-                                                                            item.id
-                                                                        }>
+                                                                <div >
                                                                     <div
                                                                         
                                                                         className="profile-page-order-detail-body"
