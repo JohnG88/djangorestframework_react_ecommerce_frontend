@@ -119,9 +119,9 @@ const ProfilePage = () => {
                                 <div className="profile-page-order-main-section">
                                     <div>
                                         <div className="profile-page-order-main-div">
-                                            {orders.map((item) => (
+                                            {orders.map((order) => (
                                                 <div
-                                                    key={item.id}
+                                                    key={order.id}
                                                     className="profile-page-order-loop-div"
                                                 >
                                                     <div className="profile-page-order-header">
@@ -149,7 +149,7 @@ const ProfilePage = () => {
                                                                 <div>
                                                                     <span>
                                                                         {
-                                                                            item.get_cart_total
+                                                                            order.get_cart_total
                                                                         }
                                                                     </span>
                                                                 </div>
@@ -163,7 +163,7 @@ const ProfilePage = () => {
                                                                 <div>
                                                                     <span>
                                                                         {
-                                                                            item.first_name
+                                                                            order.first_name
                                                                         }
                                                                     </span>
                                                                 </div>
@@ -181,13 +181,13 @@ const ProfilePage = () => {
                                                                 <div className="profile-page-single-header-detail">
                                                                     <span>
                                                                         {
-                                                                            item.id
+                                                                            order.id
                                                                         }
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <div className="profile-page-single-header-detail">
-                                                                {item.all_order_items_returned ===
+                                                                {order.all_order_items_returned ===
                                                                 true ? (
                                                                     <div className="returned-items-btn-div">
                                                                         <span className="bg bg-danger items-returned-badge">
@@ -198,7 +198,7 @@ const ProfilePage = () => {
                                                                 ) : (
                                                                     <div>
                                                                         <Link
-                                                                            to={`/return-order/${item.id}`}
+                                                                            to={`/return-order/${order.id}`}
                                                                         >
                                                                             <button className="btn btn-primary">
                                                                                 Return
@@ -210,39 +210,39 @@ const ProfilePage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {item.order_items.map(
-                                                        (innerItem) => {
+                                                    {order.order_items.map(
+                                                        (item) => {
                                                             return (
-                                                                <div>
+                                                                <div key={
+                                                                            item.id
+                                                                        }>
                                                                     <div
-                                                                        key={
-                                                                            innerItem.id
-                                                                        }
+                                                                        
                                                                         className="profile-page-order-detail-body"
                                                                     >
                                                                         <img
                                                                             className=" profile-page-order-image order-detail-body-child"
                                                                             src={
-                                                                                innerItem
+                                                                                item
                                                                                     .product_detail
                                                                                     .image
                                                                             }
                                                                             alt={
-                                                                                innerItem
+                                                                                item
                                                                                     .product_detail
                                                                                     .name
                                                                             }
                                                                         />
                                                                         <div className="order-detail-body-child">
                                                                             {
-                                                                                innerItem
+                                                                                item
                                                                                     .product_detail
                                                                                     .name
                                                                             }
                                                                         </div>
                                                                         <div className="order-detail-body-child">
                                                                             {
-                                                                                innerItem
+                                                                                item
                                                                                     .product_detail
                                                                                     .description
                                                                             }
@@ -250,7 +250,7 @@ const ProfilePage = () => {
                                                                         <div className="order-detail-body-child">
                                                                             Qty.{" "}
                                                                             {
-                                                                                innerItem.quantity
+                                                                                item.quantity
                                                                             }
                                                                         </div>
                                                                     </div>
