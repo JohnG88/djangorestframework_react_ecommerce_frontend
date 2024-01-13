@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { config } from "../Constants";
 const url = config.url.API_URL;
 
 const ProfilePage = () => {
-    const {accessToken, loading} = useSelector((state) => state.user)
+    const { accessToken, loading } = useSelector((state) => state.user);
     const currentYear = new Date().getFullYear();
 
     const [selectedYear, setSelectedYear] = useState(currentYear);
@@ -53,10 +53,10 @@ const ProfilePage = () => {
     }, [selectedYear]);
     */
 
-    const retrieveOrderByYear = useCallback( async () => {
+    const retrieveOrderByYear = useCallback(async () => {
         try {
             const access = localStorage.getItem("access");
-            console.log("Access token:", access)
+            console.log("Access token:", access);
             const res = await fetch(`${url}/order-year?year=${selectedYear}`, {
                 method: "GET",
                 headers: {
@@ -65,27 +65,29 @@ const ProfilePage = () => {
                 },
                 credentials: "include",
             });
-            console.log("Response status:", res.status)
+            console.log("Response status:", res.status);
             if (res.ok) {
                 const data = await res.json();
                 setOrders(data.user_year_orders_serializer);
                 console.log("order year data", data);
             } else {
-                console.log("Request failed with status:", res.status)
+                console.log("Request failed with status:", res.status);
+                const errorData = await res.json(); // Attempt to parse the error response
+                console.log("Error data:", errorData);
+                // Add more error handling if needed
             }
         } catch (err) {
             console.log("Error", err);
         }
-    }, [selectedYear])
+    }, [selectedYear]);
 
     useEffect(() => {
-        console.log("useEffect triggered")
+        console.log("useEffect triggered");
         if (accessToken) {
-            console.log("Calling retrieveOrderByYear")
+            console.log("Calling retrieveOrderByYear");
             retrieveOrderByYear();
-        }   
+        }
     }, [accessToken, retrieveOrderByYear]);
-    
 
     return (
         <div>
@@ -219,11 +221,8 @@ const ProfilePage = () => {
                                                     {order.order_items.map(
                                                         (item) => {
                                                             return (
-                                                                <div >
-                                                                    <div
-                                                                        
-                                                                        className="profile-page-order-detail-body"
-                                                                    >
+                                                                <div>
+                                                                    <div className="profile-page-order-detail-body">
                                                                         <img
                                                                             className=" profile-page-order-image order-detail-body-child"
                                                                             src={
